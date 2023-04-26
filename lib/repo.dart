@@ -1,7 +1,7 @@
 // takes only name, description and url from allRepo
 class Repo {
   String name;
-  String description;
+  String? description;
   String url;
 
   Repo(this.name, this.description, this.url);
