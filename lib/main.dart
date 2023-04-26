@@ -64,9 +64,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("GitHub API"),
+        title: Text("GitHub API $width"),
         centerTitle: true,
       ),
       body: Padding(
@@ -77,17 +78,22 @@ class _HomePageState extends State<HomePage> {
               if (snapshot.hasData) {
                 List<Repo> repoList = [];
                 for (int i = 0; i < snapshot.data!.allRepos.length; i++) {
-                  repoList.add(Repo(
-                    snapshot.data!.allRepos[i].name,
-                    snapshot.data!.allRepos[i].description,
-                    snapshot.data!.allRepos[i].url,
-                  ));
+                  for (int j = 0; j < wantRepo.length; j++) {
+                    if (wantRepo[j] == snapshot.data!.allRepos[i].name) {
+                      repoList.add(Repo(
+                        snapshot.data!.allRepos[i].name,
+                        snapshot.data!.allRepos[i].description,
+                        snapshot.data!.allRepos[i].url,
+                      ));
+                    }
+                  }
                 }
                 return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: width > 1093 ? 4 : 3,
                   ),
-                  itemCount: snapshot.data!.allRepos.length,
+                  // itemCount: snapshot.data!.allRepos.length,
+                  itemCount: repoList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return AspectRatio(
                       aspectRatio: 1,
@@ -115,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(
                                 height: 50.0,
                               ),
-                              Text(repoList[index].url),
+                              // Text(repoList[index].url),
                               const Spacer(),
                               IconButton(
                                   onPressed: () {

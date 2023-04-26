@@ -28,3 +28,13 @@ class AllRepo {
     return AllRepo(allRepos);
   }
 }
+
+List wantRepo = [
+  "care_connect",
+  "github_api",
+  "random_name_generator",
+  "QR-analyzer",
+  "supportthon",
+  "sharkhacks4",
+  "viteED",
+];
